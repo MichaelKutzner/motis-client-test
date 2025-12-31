@@ -1,0 +1,7 @@
+apiPackage: "org.openapitools.client.motis.api"
+generatorName: "scala-sttp"  # Cannot use sttp4 with jsonLibrary circe
+outputDir : "generated"
+additionalProperties:
+  dateLibrary: "java8"
+  jsonLibrary: circe
+
