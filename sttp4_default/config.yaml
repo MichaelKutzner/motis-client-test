@@ -1,0 +1,6 @@
+apiPackage: "org.openapitools.client.motis.api"
+generatorName: "scala-sttp4"
+outputDir : "generated"
+additionalProperties:
+  dateLibrary: "joda"
+
