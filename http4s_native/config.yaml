@@ -1,0 +1,6 @@
+apiPackage: "org.openapitools.client.motis.api"
+generatorName: "scala-http4s"
+outputDir : "generated"
+additionalProperties:
+  dateLibrary: "java8"
+
