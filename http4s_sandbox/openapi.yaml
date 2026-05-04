@@ -62,7 +62,9 @@ components:
         value:
           type: number
         eitherType:
-          type: string
+          enum:
+            - MyLeft
+          default: MyLeft
     MyRight:
       type: object
       # required:
@@ -73,5 +75,7 @@ components:
         value:
           type: string
         eitherType:
-          type: string
+          enum:
+            - MyRight
+          default: MyRight
 

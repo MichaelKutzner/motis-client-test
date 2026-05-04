@@ -22,7 +22,7 @@ import example.client.apis.DefaultApiEndpointsImpl
   val left = MyLeft(
     left = Some("Hello, World"),
     value = Some(3.14),
-    eitherType = "MyLeft",
+    eitherType = MyLeftEitherType.MyLeft,
   )
   val right = MyRight(right = Some("Test"), value = Some("String value"))
   val obj =
