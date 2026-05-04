@@ -1,0 +1,6 @@
+generatorName: "scala-http4s"
+packageName: "example.client"
+outputDir : "http4s-client"
+additionalProperties:
+  dateLibrary: "java8"
+

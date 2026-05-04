@@ -1,29 +1,22 @@
-// import org.openapitools.client.custom.api.TimetableApiEndpointsImpl
-// import org.http4s.Uri
-// import org.http4s.client.Client
-// import org.http4s.client.JavaNetClientBuilder
-// import scala.concurrent.ExecutionContext
-// import java.util.concurrent.Executors
-//
-// import cats.effect._
-// import java.util.concurrent._
-// import org.http4s.client._
-// import org.http4s.implicits._
-// import org.http4s.dsl._
-// import org.http4s._
-// import scala.concurrent.duration.Duration
-// // import cats.effect.IO
-// // import sttp.client4.DefaultSyncBackend
+import cats.effect.IO
+import cats.effect.unsafe.IORuntime
 
+// import org.http4s.dsl.io.*
+import org.http4s.implicits.uri
+import org.http4s.ember.client.EmberClientBuilder
+
+// import io.circe.*
+// import io.circe.generic.auto.*
 import io.circe.Json
 import io.circe.Encoder
 
-// import org.openapitools.client.models.MyObject
-// import org.openapitools.client.models.MyObject.{given Encoder[MyObject]}
-// import org.openapitools.client.models.{given Encoder[?]}
-import org.openapitools.client.models.MyObject.encoderMyObject
-import org.openapitools.client.apis.JsonSupports.given
-import org.openapitools.client.models.*
+// import example.client.models.MyObject
+// import example.client.models.MyObject.{given Encoder[MyObject]}
+// import example.client.models.{given Encoder[?]}
+import example.client.models.MyObject.encoderMyObject
+// import example.client.apis.JsonSupports.given
+import example.client.models.*
+import example.client.apis.DefaultApiEndpointsImpl
 
 @main def main(): Unit =
   val left = MyLeft(
@@ -39,4 +32,23 @@ import org.openapitools.client.models.*
   // println(s"obj(v2): '${obj.as[Json](using encoderMyObject)}'")
   println(s"left: ${MyEither.encoderMyEither(left)}")
   println(s"right: ${MyEither.encoderMyEither(right)}")
-import org.openapitools.client.models.MyObject
+
+  // Test request
+  given runtime: IORuntime = cats.effect.unsafe.IORuntime.global
+  testSend(obj).unsafeRunSync()
+
+def testSend(obj: MyObject): IO[MyObject] =
+  EmberClientBuilder.default[IO].build.use { httpClient =>
+    val client = DefaultApiEndpointsImpl(
+      uri"http://localhost:8000",
+      httpClient = httpClient,
+    )
+    val resp = client.echoPost(obj)
+    resp.map(r =>
+      println("Request completet:")
+      println(s"POST(${obj}) ⇒ ${r}")
+      println(MyObject.encoderMyObject(r))
+      println(r)
+      r,
+    )
+  }

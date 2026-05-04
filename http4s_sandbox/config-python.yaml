@@ -1,0 +1,4 @@
+generatorName: "python"
+packageName: "example.client"
+outputDir : "python-client"
+
