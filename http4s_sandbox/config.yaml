@@ -1,0 +1,9 @@
+# apiPackage: "org.openapitools.client.custom.api"
+generatorName: "scala-http4s"
+# generatorName: "scala-sttp4"
+# generatorName: "python"
+# generatorName: "scala-pekko"
+outputDir : "generated"
+additionalProperties:
+  dateLibrary: "java8"
+
