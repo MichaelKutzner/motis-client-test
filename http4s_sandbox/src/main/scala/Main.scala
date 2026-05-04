@@ -32,10 +32,12 @@ import example.client.apis.DefaultApiEndpointsImpl
   // println(s"obj(v2): '${obj.as[Json](using encoderMyObject)}'")
   println(s"left: ${MyEither.encoderMyEither(left)}")
   println(s"right: ${MyEither.encoderMyEither(right)}")
+  println(s"right(raw): ${MyRight.encoderMyRight(right)}")
 
   // Test request
   given runtime: IORuntime = cats.effect.unsafe.IORuntime.global
   testSend(obj).unsafeRunSync()
+  testSend(MyObject(id = Some(123), feature = Some(right))).unsafeRunSync()
 
 def testSend(obj: MyObject): IO[MyObject] =
   EmberClientBuilder.default[IO].build.use { httpClient =>
