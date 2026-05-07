@@ -1,4 +1,10 @@
 generatorName: "scala-http4s"
+nameMappings:
+  # "@id": "myId"
+  "@id": "`@id`"
+  # "type": "typeType
+  type: "`type`"
+  value: myValue
 packageName: "example.client"
 outputDir : "http4s-client"
 additionalProperties:

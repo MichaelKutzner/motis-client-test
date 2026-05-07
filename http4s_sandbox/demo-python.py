@@ -9,11 +9,10 @@ from example.client import MyObject, MyEither, MyLeft, MyRight
 from example.client import ApiClient, Configuration, DefaultApi
 
 def main():
-    # either = MyEither.from_dict({'left': 'Hello, World!', 'value': 2.71, 'eitherType': 'MyLeft'})
-    either = MyLeft(left='Hello, World!', value=2.71, eitherType='MyLeft')
+    either = MyLeft(left='Hello, World!', value=2.71, type='MyLeft')
     print(f"Either: '{either.to_json()}'")
     print()
-    o = MyObject.from_dict({'id': 5, 'feature': either.to_dict()})
+    o = MyObject.from_dict({'@id': 5, 'feature': either.to_dict()})
     assert(o is not None)
     print(f"Object: '{o}'")
     print(o.to_json())

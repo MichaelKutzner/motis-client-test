@@ -33,7 +33,16 @@ lazy val client = project
     scalaVersion := scala3Version,
     openApiInputSpec := "openapi.yaml",
     openApiConfigFile := "config-http4s.yaml",
-    libraryDependencies += "org.typelevel" %% "cats-effect" % "3.6.3",
+    libraryDependencies ++= Seq(
+      // "org.typelevel" %% "cats-effect" % "3.6.3",
+      "io.circe" %% "circe-core" % circeVersion,
+      "io.circe" %% "circe-generic" % circeVersion,
+      // "io.circe" %% "circe-parser" % circeVersion,
+      // // "io.circe" %% "circe-literal" % circeVersion,
+      "org.http4s" %% "http4s-ember-client" % http4sVersion,
+      // "org.http4s" %% "http4s-dsl" % http4sVersion,
+      "org.http4s" %% "http4s-circe" % http4sVersion,
+    ),
   )
 
 lazy val pythonClient = project

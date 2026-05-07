@@ -34,47 +34,41 @@ components:
     MyObject:
       description: Echoable object
       properties:
-        id:
+        "@id":
           type: integer
         value:
           type: string
         feature:
-          # oneOf:
-          #   - $ref: '#/components/schemas/MyLeft'
-          #   - $ref: '#/components/schemas/MyRight'
-          # discriminator:
-          #   propertyName: eitherType
           $ref: '#/components/schemas/MyEither'
+      required:
+        - "@id"
     MyEither:
       oneOf:
-      # anyOf:
         - $ref: '#/components/schemas/MyLeft'
         - $ref: '#/components/schemas/MyRight'
       discriminator:
-        propertyName: eitherType
+        propertyName: type
     MyLeft:
       type: object
       required:
-        - eitherType
+        - type
       properties:
         left:
           type: string
         value:
           type: number
-        eitherType:
+        type:
           enum:
             - MyLeft
           default: MyLeft
     MyRight:
       type: object
-      # required:
-      #   - eitherType
       properties:
         right:
           type: string
         value:
           type: string
-        eitherType:
+        type:
           enum:
             - MyRight
           default: MyRight

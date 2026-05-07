@@ -1,4 +1,10 @@
 generatorName: "python"
+nameMappings:
+  # "@id": "myId"
+  "@id": "id"
+  # "type": "typeType
+  type: "type"
+  value: myValue
 packageName: "example.client"
 outputDir : "python-client"
 
