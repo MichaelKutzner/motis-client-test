@@ -9,12 +9,11 @@ import org.http4s.ember.client.EmberClientBuilder
 // import io.circe.generic.auto.*
 import io.circe.Json
 import io.circe.Encoder
+import io.circe.syntax._ // Required for _.asJson
 
-// import example.client.models.MyObject
-// import example.client.models.MyObject.{given Encoder[MyObject]}
-// import example.client.models.{given Encoder[?]}
+import example.client.models.{given Encoder[?]}
 import example.client.models.MyObject.encoderMyObject
-// import example.client.apis.JsonSupports.given
+// import example.client.models.given
 import example.client.models.*
 import example.client.apis.DefaultApiEndpointsImpl
 
@@ -28,14 +27,14 @@ import example.client.apis.DefaultApiEndpointsImpl
   val right = MyRight(right = Some("Test"), myValue = Some("String value"))
   val obj =
     MyObject(`@id` = 42, myValue = Some("Test entry"), feature = Some(left))
-  println(s"obj: '${MyObject.encoderMyObject(obj)}'")
-  // println(s"obj: '${obj.as[Json]}'")
-  // println(s"obj(v2): '${obj.as[Json](using encoderMyObject)}'")
-  println(s"left: ${MyEither.encoderMyEither(left)}")
-  println(s"right: ${MyEither.encoderMyEither(right)}")
-  println(s"right(raw): ${MyRight.encoderMyRight(right)}")
+  // println(s"obj: '${MyObject.encoderMyObject(obj)}'"))
+  println(s"obj: '${obj.asJson}'")
+  // println(s"obj(v2): '${obj.asJson(using encoderMyObject)}'")
+  println(s"left: ${left.asJson}")
+  println(s"right: ${right.asJson}")
+  println(s"right(as MyEither): ${MyEither.encoderMyEither(right)}")
   println(
-    s"obj with right: ${MyObject.encoderMyObject(obj.copy(feature = Some(right)))}",
+    s"obj with right: ${obj.copy(feature = Some(right)).asJson}",
   )
 
   // Test request
@@ -53,7 +52,7 @@ def testSend(obj: MyObject): IO[MyObject] =
     resp.map(r =>
       println("Request completet:")
       println(s"POST(${obj}) ⇒ ${r}")
-      println(MyObject.encoderMyObject(r))
+      println(r.asJson)
       println(r)
       r,
     )
